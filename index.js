@@ -1,14 +1,21 @@
 import { createServer } from "@graphql-yoga/node";
 import resolvers from "./graphql/resolvers";
 
-const server = new createServer({
+// Create your server
+const server = createServer({
   schema: {
-    typeDefs: `type Query {
-      name: String!
-    }
+    typeDefs: /* GraphQL */ `
+      type Person {
+        name: String!
+        age: Int!
+        gender: String!
+      }
+      type Query {
+        people: [Person]!
+        person(id: Int!): Person
+      }
     `,
     resolvers,
   },
 });
-
-server.start(() => console.log("start"));
+server.start();
